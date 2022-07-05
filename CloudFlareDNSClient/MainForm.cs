@@ -251,13 +251,12 @@ namespace CloudFlareDNSClient
                 updateIPAddressUI(protocol, "無法取得");
                 return false;
             }
+            updateIPAddressUI(protocol, ip);
 
             string last = protocol == IPProtocol.IPv4 ? setting.ip.ip4Address : setting.ip.ip6Address;
             if (ip != last || setting.forceUpdate)
             {
                 logIPChange(protocol, last, ip);
-                updateIPAddressUI(protocol, ip);
-
                 string dnsRecordType = protocol == IPProtocol.IPv4 ? "A" : "AAAA";
                 IList<DNSResult> updateEntry = await Task.Run(() =>
                 {
