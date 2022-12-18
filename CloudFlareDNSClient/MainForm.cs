@@ -160,8 +160,8 @@ namespace CloudFlareDNSClient
 
         private void enableUpdateControl(bool enable)
         {
-            tsmiSetting.Enabled = btnEditAccount.Enabled = btnEditHost.Enabled
-                = btnUpdate.Enabled = enable;
+            tsmiSetting.Enabled = tsmiPublicIP.Enabled = btnEditAccount.Enabled
+                = btnEditHost.Enabled = btnUpdate.Enabled = enable;
         }
 
         private void resetUpdate()
@@ -354,7 +354,8 @@ namespace CloudFlareDNSClient
         private string getPublicIPAddress(IPProtocol protocol)
         {
             string errorMesssage;
-            string ret = Util.getPublicIPAddress(protocol, client, out errorMesssage);
+            PublicIPAPIURL publicIPAPIURL = setting.publicIPAPIURL;
+            string ret = Util.getPublicIPAddress(protocol, client, out errorMesssage, protocol == IPProtocol.IPv4 ? publicIPAPIURL.ip4APIURL : publicIPAPIURL.ip6APIURL);
 
             if (ret == null)
             {
@@ -587,6 +588,16 @@ namespace CloudFlareDNSClient
         {
             niMin.Visible = false;
             exit();
+        }
+
+        private void tsmiPublicIP_Click(object sender, EventArgs e)
+        {
+            timerUpdate.Stop();
+            using (PublicIPForm form = new PublicIPForm(setting))
+            {
+                form.ShowDialog();
+            }
+            timerUpdate.Start();
         }
     }
 }

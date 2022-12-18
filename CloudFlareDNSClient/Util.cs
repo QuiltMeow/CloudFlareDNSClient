@@ -5,36 +5,50 @@ using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace CloudFlareDNSClient
 {
     public static class Util
     {
         private const int MAX_ATTEMPT = 3;
+        private const int TIMEOUT = 5 * 1000;
 
-        public static string getPublicIPAddress(IPProtocol protocol, HttpClient client, out string errorMesssage)
+        public static string getPublicIPAddress(IPProtocol protocol, HttpClient client, out string errorMesssage, string url = null)
         {
             string ret = null;
             errorMesssage = null;
 
             int attempt = 0;
-            string url = protocol == IPProtocol.IPv4 ? "https://ip4.seeip.org/" : "http://v6.ipv6-test.com/api/myip.php";
+            string requestURL;
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                requestURL = url;
+            }
+            else
+            {
+                requestURL = protocol == IPProtocol.IPv4 ? "https://ip4.seeip.org/" : "http://v6.ipv6-test.com/api/myip.php";
+            }
+
             while (ret == null && attempt < MAX_ATTEMPT)
             {
                 ++attempt;
                 try
                 {
-                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, requestURL);
                     request.Headers.ConnectionClose = true;
 
-                    string response = client.SendAsync(request).Result.Content.ReadAsStringAsync().Result;
-                    string candidatePublicIPAddress = response.Replace("\n", string.Empty);
-
-                    if (!isValidIPAddress(protocol, candidatePublicIPAddress))
+                    using (CancellationTokenSource cts = new CancellationTokenSource(TIMEOUT))
                     {
-                        throw new Exception($"無效的回應格式 : {response}");
+                        string response = client.SendAsync(request, cts.Token).Result.Content.ReadAsStringAsync().Result;
+                        string candidatePublicIPAddress = response.Replace("\n", string.Empty);
+
+                        if (!isValidIPAddress(protocol, candidatePublicIPAddress))
+                        {
+                            throw new Exception($"無效的回應格式 : {response}");
+                        }
+                        ret = candidatePublicIPAddress;
                     }
-                    ret = candidatePublicIPAddress;
                 }
                 catch (Exception ex)
                 {

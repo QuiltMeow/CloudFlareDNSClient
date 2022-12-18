@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>CloudFlareDNSClient</RootNamespace>
     <AssemblyName>CloudFlareDNSClient</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -101,6 +101,12 @@
     <Compile Include="PreferenceForm.Designer.cs">
       <DependentUpon>PreferenceForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PublicIPForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PublicIPForm.Designer.cs">
+      <DependentUpon>PublicIPForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Util.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -144,6 +150,9 @@
     </Compile>
     <EmbeddedResource Include="AccountForm.resx">
       <DependentUpon>AccountForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PublicIPForm.resx">
+      <DependentUpon>PublicIPForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />

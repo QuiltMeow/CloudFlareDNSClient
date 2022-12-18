@@ -69,6 +69,12 @@ namespace CloudFlareDNSClient
             set;
         }
 
+        public PublicIPAPIURL publicIPAPIURL
+        {
+            get;
+            private set;
+        }
+
         public SettingData()
         {
             loadDefault();
@@ -82,6 +88,7 @@ namespace CloudFlareDNSClient
             ipDetectMethod = IPDetectMethod.REMOTE;
             apiAccessMethod = APIAccessMethod.API_KEY;
             startMinimum = forceUpdate = false;
+            publicIPAPIURL = new PublicIPAPIURL();
         }
 
         public bool validate()
@@ -114,6 +121,31 @@ namespace CloudFlareDNSClient
         public void resetLastIP()
         {
             ip4Address = ip6Address = string.Empty;
+        }
+    }
+
+    public class PublicIPAPIURL
+    {
+        public string ip4APIURL
+        {
+            get;
+            set;
+        }
+
+        public string ip6APIURL
+        {
+            get;
+            set;
+        }
+
+        public PublicIPAPIURL()
+        {
+            reset();
+        }
+
+        public void reset()
+        {
+            ip4APIURL = ip6APIURL = string.Empty;
         }
     }
 
@@ -197,6 +229,9 @@ namespace CloudFlareDNSClient
                         apiAccessMethod = br.ReadInt32() == 0 ? APIAccessMethod.API_KEY : APIAccessMethod.API_TOKEN;
                         adapter = br.ReadString();
                         forceUpdate = br.ReadBoolean();
+
+                        publicIPAPIURL.ip4APIURL = br.ReadString();
+                        publicIPAPIURL.ip6APIURL = br.ReadString();
                     }
                 }
             }
@@ -237,6 +272,9 @@ namespace CloudFlareDNSClient
                         bw.Write(apiAccessMethod == APIAccessMethod.API_KEY ? 0 : 1);
                         bw.Write(adapter);
                         bw.Write(forceUpdate);
+
+                        bw.Write(publicIPAPIURL.ip4APIURL);
+                        bw.Write(publicIPAPIURL.ip6APIURL);
                     }
                 }
             }

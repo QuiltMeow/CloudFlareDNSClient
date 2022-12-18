@@ -80,6 +80,7 @@
             this.timerUpdate = new System.Windows.Forms.Timer(this.components);
             this.pbLogoText = new System.Windows.Forms.PictureBox();
             this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.tsmiPublicIP = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsMin.SuspendLayout();
             this.msMenu.SuspendLayout();
             this.gbStatus.SuspendLayout();
@@ -110,19 +111,19 @@
             this.tsmiMinShow,
             this.tsmiMinExit});
             this.cmsMin.Name = "cmsMin";
-            this.cmsMin.Size = new System.Drawing.Size(181, 70);
+            this.cmsMin.Size = new System.Drawing.Size(99, 48);
             // 
             // tsmiMinShow
             // 
             this.tsmiMinShow.Name = "tsmiMinShow";
-            this.tsmiMinShow.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMinShow.Size = new System.Drawing.Size(98, 22);
             this.tsmiMinShow.Text = "顯示";
             this.tsmiMinShow.Click += new System.EventHandler(this.tsmiMinShow_Click);
             // 
             // tsmiMinExit
             // 
             this.tsmiMinExit.Name = "tsmiMinExit";
-            this.tsmiMinExit.Size = new System.Drawing.Size(180, 22);
+            this.tsmiMinExit.Size = new System.Drawing.Size(98, 22);
             this.tsmiMinExit.Text = "離開";
             this.tsmiMinExit.Click += new System.EventHandler(this.tsmiMinExit_Click);
             // 
@@ -144,6 +145,7 @@
             // 
             this.tsmiFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiSetting,
+            this.tsmiPublicIP,
             this.tssHide,
             this.tsmiHide,
             this.tssExit,
@@ -155,31 +157,31 @@
             // tsmiSetting
             // 
             this.tsmiSetting.Name = "tsmiSetting";
-            this.tsmiSetting.Size = new System.Drawing.Size(122, 22);
+            this.tsmiSetting.Size = new System.Drawing.Size(210, 22);
             this.tsmiSetting.Text = "偏好設定";
             this.tsmiSetting.Click += new System.EventHandler(this.tsmiSetting_Click);
             // 
             // tssHide
             // 
             this.tssHide.Name = "tssHide";
-            this.tssHide.Size = new System.Drawing.Size(119, 6);
+            this.tssHide.Size = new System.Drawing.Size(207, 6);
             // 
             // tsmiHide
             // 
             this.tsmiHide.Name = "tsmiHide";
-            this.tsmiHide.Size = new System.Drawing.Size(122, 22);
+            this.tsmiHide.Size = new System.Drawing.Size(210, 22);
             this.tsmiHide.Text = "隱藏";
             this.tsmiHide.Click += new System.EventHandler(this.tsmiHide_Click);
             // 
             // tssExit
             // 
             this.tssExit.Name = "tssExit";
-            this.tssExit.Size = new System.Drawing.Size(119, 6);
+            this.tssExit.Size = new System.Drawing.Size(207, 6);
             // 
             // tsmiExit
             // 
             this.tsmiExit.Name = "tsmiExit";
-            this.tsmiExit.Size = new System.Drawing.Size(122, 22);
+            this.tsmiExit.Size = new System.Drawing.Size(210, 22);
             this.tsmiExit.Text = "結束";
             this.tsmiExit.Click += new System.EventHandler(this.tsmiExit_Click);
             // 
@@ -198,7 +200,7 @@
             this.tsmiCopyIP4Address,
             this.tsmiCopyIP6Address});
             this.tsmiCopyIPAddress.Name = "tsmiCopyIPAddress";
-            this.tsmiCopyIPAddress.Size = new System.Drawing.Size(170, 22);
+            this.tsmiCopyIPAddress.Size = new System.Drawing.Size(180, 22);
             this.tsmiCopyIPAddress.Text = "複製 IP 位址";
             // 
             // tsmiCopyIP4Address
@@ -218,7 +220,7 @@
             // tsmiCopyAPIAccess
             // 
             this.tsmiCopyAPIAccess.Name = "tsmiCopyAPIAccess";
-            this.tsmiCopyAPIAccess.Size = new System.Drawing.Size(170, 22);
+            this.tsmiCopyAPIAccess.Size = new System.Drawing.Size(180, 22);
             this.tsmiCopyAPIAccess.Text = "複製 API 存取代碼";
             this.tsmiCopyAPIAccess.Click += new System.EventHandler(this.tsmiCopyAPIAccess_Click);
             // 
@@ -543,6 +545,13 @@
             this.pbLogo.TabStop = false;
             this.pbLogo.Click += new System.EventHandler(this.pbLogo_Click);
             // 
+            // tsmiPublicIP
+            // 
+            this.tsmiPublicIP.Name = "tsmiPublicIP";
+            this.tsmiPublicIP.Size = new System.Drawing.Size(210, 22);
+            this.tsmiPublicIP.Text = "外部 IP 取得 API 網址設定";
+            this.tsmiPublicIP.Click += new System.EventHandler(this.tsmiPublicIP_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -635,6 +644,7 @@
         private System.Windows.Forms.ContextMenuStrip cmsMin;
         private System.Windows.Forms.ToolStripMenuItem tsmiMinShow;
         private System.Windows.Forms.ToolStripMenuItem tsmiMinExit;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPublicIP;
     }
 }
 
